@@ -47,6 +47,10 @@ def get_model_response(model_name: str, prompt: str) -> str:
         ],
     )
 
+    ps_process = psutil.Process(ollama_server_pid.pid)
+    memory_info = ps_process.memory_info()
+    memory_usage_mb = memory_info.rss / (1024 * 1024)  # Convert bytes to MB
+
     ollama_server_pid.terminate()
     try:
         ollama_server_pid.wait(timeout=5)  # Wait for the process to terminate
@@ -57,7 +61,7 @@ def get_model_response(model_name: str, prompt: str) -> str:
     output = ollama_server_pid.stdout.read().decode("utf-8")
     error = ollama_server_pid.stderr.read().decode("utf-8")
     print("Action: Ollama stopped")
-    return response["message"]["content"], output, error
+    return response["message"]["content"], output, error, memory_usage_mb
 
 
 models = ["llama2", "mistral", "mixtral"]
@@ -77,6 +81,7 @@ for prompt_file in prompt_files:
         print(f"Time taken: {time_taken:0.4f} seconds")
         # print("Output: ", res[1])
         # print("Error: ", res[2])
+        print(f"Memory usage: {res[3]:0.2f} MB")
         print(
             "..................................................................................................."
         )
@@ -96,6 +101,10 @@ for prompt_file in prompt_files:
 
         with open(f"outputs/{model}_{prompt_file}_time.txt", "w") as file:
             file.write(f"{time_taken:0.4f} seconds")
+            file.close()
+
+        with open(f"outputs/{model}_{prompt_file}_memory.txt", "w") as file:
+            file.write(f"{res[3]:0.2f} MB")
             file.close()
 
         time.sleep(3)
