@@ -60,7 +60,7 @@ def get_model_response(model_name: str, prompt: str) -> str:
     return response["message"]["content"], output, error
 
 
-models = ["llama2", "mistral"]
+models = ["llama2", "mistral", "mixtral"]
 
 # print("Models available from Ollama", ollama.list())
 
@@ -70,11 +70,32 @@ for prompt_file in prompt_files:
     for model in models:
         print("Prompt: ", prompt)
         print("Model: ", model)
+        start_time = time.perf_counter()
         res = get_model_response(model, prompt)
+        time_taken = time.perf_counter() - start_time
         print("Response: ", res[0])
-        print("Output: ", res[1])
-        print("Error: ", res[2])
+        print(f"Time taken: {time_taken:0.4f} seconds")
+        # print("Output: ", res[1])
+        # print("Error: ", res[2])
         print(
             "..................................................................................................."
         )
+
+        prompt_file = prompt_file.replace("prompts/", "")
+        prompt_file = prompt_file.replace(".txt", "")
+        with open(f"outputs/{model}_{prompt_file}_response.txt", "w") as file:
+            file.write(res[0])
+            file.close()
+
+        with open(f"outputs/{model}_{prompt_file}_log.txt", "w") as file:
+            file.write(res[1])
+            file.close()
+        with open(f"outputs/{model}_{prompt_file}_error.txt", "w") as file:
+            file.write(res[2])
+            file.close()
+
+        with open(f"outputs/{model}_{prompt_file}_time.txt", "w") as file:
+            file.write(f"{time_taken:0.4f} seconds")
+            file.close()
+
         time.sleep(3)
