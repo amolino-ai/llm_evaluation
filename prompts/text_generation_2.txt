@@ -1,0 +1,1 @@
+You are a blogger that writes about baking recipes. Provide step-by-step instructions on how to bake a chocolate cake.
