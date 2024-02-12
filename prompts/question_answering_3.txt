@@ -1,0 +1,2 @@
+Instructions: The retrieved information should be relevant and accurate
+Prompt: Provide a comprehensive overview of the causes, symptoms, and treatment options for type 2 diabetes mellitus, emphasizing lifestyle modifications and pharmacological interventions.

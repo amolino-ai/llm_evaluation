@@ -1,0 +1,2 @@
+Instructions: The definition should be precise
+Prompt: Define the following word - Lexicographer. Give your response in JSON format.
