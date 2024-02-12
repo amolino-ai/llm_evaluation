@@ -1,0 +1,6 @@
+Consider the following example -
+Q: How many keystrokes are needed to type the numbers from 1 to 500?
+A: There are 9 one-digit numbers from 1 to 9. There are 90 two-digit numbers from 10 to 99. There are 401 three-digit numbers from 100 to 500. 9 + 90(2) + 401(3) = 1392.
+
+Now, based on the previous example, think step by step and answer the following question -
+Q: How many digits are used to write the numbers from 1 to 1,000 inclusive?

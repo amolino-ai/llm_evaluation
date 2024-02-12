@@ -1,0 +1,1 @@
+Find the roots of the quadratic equation x^2 - 5x + 6 = 0. Think step by step.

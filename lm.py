@@ -64,7 +64,7 @@ def get_model_response(model_name: str, prompt: str) -> str:
     return response["message"]["content"], output, error, memory_usage_mb
 
 
-models = ["llama2", "mistral", "mixtral"]
+models = ["llama2", "mistral", "phi", "zephyr", "stablelm-zephyr", "openchat", "falcon", "vicuna", "orca2"]
 
 # print("Models available from Ollama", ollama.list())
 

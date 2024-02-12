@@ -1,0 +1,9 @@
+Consider the following example where there is a question followed by given answer choices, and then the response with the correct chosen answer -
+Q: Sammy wanted to go to where the people were. Where might he go?
+Answer Choices: (a) race track (b) populated areas (c) desert (d) apartment (e) roadblock
+A: The answer must be a place with a lot of people. Race tracks, desert,
+apartments, and roadblocks don't have a lot of people, but populated areas do. So the answer is (b).
+
+Now, based on the previous example, think step by step and choose an answer for the following question -
+Q: Maria was in search of excitement and activity. Where might she go?
+Answer Choices: (a) silent library (b) serene beach (c) tranquil garden (d) bustling amusement park (e) empty parking lot.
