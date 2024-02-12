@@ -1,0 +1,4 @@
+You work in advertising and marketing. Classify customer reviews into different categories such as electronics or clothing
+Review 1: "These running shoes are a game-changer! The comfort and support they provide make my workouts a breeze. Stylish design and durable build. Highly recommend it!"
+Review 2: "Our new sofa is the perfect addition to our living room. It's not only comfortable but also beautifully crafted. The color and material are top-notch. Delivered on time and in perfect condition."
+Review 3: "I'm impressed with the sleek design and powerful features of this smartphone. The camera quality is exceptional, and the battery life exceeds my expectations. A solid purchase!"

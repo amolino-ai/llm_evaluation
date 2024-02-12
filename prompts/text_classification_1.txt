@@ -1,0 +1,11 @@
+Consider the following example -
+Example: The sheep frolicked in the pasture.
+Sentiment: Positive
+
+Consider the following example -
+Example: The duck was caught by the fox.
+Sentiment: Negative
+
+Now, based on the previous two examples, think step by step and answer the following question -
+Classify the following sentence's sentiment: the caterpillar munched away with a twinkling in its eye.
+Explain why you chose your classification.
