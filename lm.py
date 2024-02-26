@@ -1,6 +1,11 @@
-import ollama, os
+import datetime
+import os
+import subprocess
+import time
 from typing import List
-import subprocess, psutil, time
+import csv
+import psutil
+import ollama
 
 
 def get_prompt_files(folder_path: str) -> List[str]:
@@ -64,47 +69,44 @@ def get_model_response(model_name: str, prompt: str) -> str:
     return response["message"]["content"], output, error, memory_usage_mb
 
 
-models = ["llama2", "mistral", "phi", "zephyr", "stablelm-zephyr", "openchat", "falcon", "vicuna", "orca2"]
+current_time = datetime.datetime.now()
+csv_file_name = f"outputs/run_{current_time.strftime('%Y_%m_%d_%H_%M')}.csv"
 
-# print("Models available from Ollama", ollama.list())
+with open(csv_file_name, mode="w", newline="") as csv_file:
+    csv_writer = csv.writer(csv_file)
+    # Write the header row
+    csv_writer.writerow(
+        ["Name of Model", "Prompt", "Response", "Time Taken", "Memory Usage"]
+    )
 
-prompt_files = get_prompt_files("prompts")
-for prompt_file in prompt_files:
-    prompt = get_prompt(prompt_file)
-    for model in models:
-        print("Prompt: ", prompt)
-        print("Model: ", model)
-        start_time = time.perf_counter()
-        res = get_model_response(model, prompt)
-        time_taken = time.perf_counter() - start_time
-        print("Response: ", res[0])
-        print(f"Time taken: {time_taken:0.4f} seconds")
-        # print("Output: ", res[1])
-        # print("Error: ", res[2])
-        print(f"Memory usage: {res[3]:0.2f} MB")
-        print(
-            "..................................................................................................."
-        )
+    models = ["mistral"]
+    prompt_files = get_prompt_files("prompts")
 
-        prompt_file = prompt_file.replace("prompts/", "")
-        prompt_file = prompt_file.replace(".txt", "")
-        with open(f"outputs/{model}_{prompt_file}_response.txt", "w") as file:
-            file.write(res[0])
-            file.close()
+    for prompt_file in prompt_files:
+        prompt = get_prompt(prompt_file)
+        for model in models:
+            print("Prompt: ", prompt)
+            print("Model: ", model)
+            start_time = time.perf_counter()
+            res = get_model_response(model, prompt)
+            time_taken = time.perf_counter() - start_time
+            print("Response: ", res[0])
+            print(f"Time taken: {time_taken:0.4f} seconds")
+            print(f"Memory usage: {res[3]:0.2f} MB")
+            print(
+                "..................................................................................................."
+            )
 
-        with open(f"outputs/{model}_{prompt_file}_log.txt", "w") as file:
-            file.write(res[1])
-            file.close()
-        with open(f"outputs/{model}_{prompt_file}_error.txt", "w") as file:
-            file.write(res[2])
-            file.close()
+            # Write the results as a new row in the CSV file
+            csv_writer.writerow(
+                [
+                    model,
+                    prompt,
+                    res[0],
+                    f"{time_taken:0.4f} seconds",
+                    f"{res[3]:0.2f} MB",
+                ]
+            )
 
-        with open(f"outputs/{model}_{prompt_file}_time.txt", "w") as file:
-            file.write(f"{time_taken:0.4f} seconds")
-            file.close()
-
-        with open(f"outputs/{model}_{prompt_file}_memory.txt", "w") as file:
-            file.write(f"{res[3]:0.2f} MB")
-            file.close()
-
-        time.sleep(3)
+            # Sleep for 3 seconds before processing the next prompt
+            time.sleep(3)
